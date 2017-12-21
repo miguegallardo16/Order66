@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="User Entered Import Resolution" name="http://purl.uniprot.org/core/" uri="uniprot-proteome%253AUP000000589+AND+%2528proteomecomponent%253A%2522Chromosome+Y%2522%2529.rdf"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1511866238682" name="duplicate:http://purl.uniprot.org/uniprot/" uri="chromosome.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1511866238682" name="duplicate:http://purl.uniprot.org/uniprot/" uri="uniprot-proteome%253AUP000000589+AND+%2528proteomecomponent%253A%2522Chromosome+Y%2522%2529.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1511866238682" name="duplicate:http://purl.uniprot.org/uniprot/" uri="uniprot-proteome%253AUP000000589.rdf"/>
+        <uri id="Automatically generated entry, Timestamp=1511866238682" name="duplicate:http://purl.uniprot.org/uniprot/" uri="uniprot-taxonomy%253A10090.rdf"/>
+    </group>
+</catalog>
