@@ -1,0 +1,1 @@
+Para poder realizar las consultas tendremos que descargarnos la base de datos de los cromosomas del raton que podemos encontrar en UniProt
