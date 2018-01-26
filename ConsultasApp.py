@@ -1,9 +1,11 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QAction, QTableWidget, QTableWidgetItem, QVBoxLayout
 from PyQt5.QtWidgets import QLineEdit, QComboBox, QPushButton, QTextEdit
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QFont
 from PyQt5.QtCore import pyqtSlot
 import rdflib
+import requests
+import shutil
 
 g = rdflib.Graph()
 g.parse('chromosome.rdf')
@@ -31,8 +33,12 @@ class App(QWidget):
         self.setGeometry(self.left, self.top, self.width, self.height)
         # textedit
         self.text_edit = QTextEdit(self)
-        self.text_edit.setPlaceholderText('Introduce la consulta a realizar')
         self.text_edit.setCurrentFont(font)
+        self.text_edit.setPlaceholderText('Introduce la consulta')
+
+        self.query_response = QTextEdit(self)
+        self.query_response.setCurrentFont(font)
+
 
         # Search box
         self.query_text = QLineEdit(self)
@@ -47,6 +53,7 @@ class App(QWidget):
 
         self.query_text3 = QLineEdit(self)
         self.query_text3.setPlaceholderText('Introduce la secuencia nueva')
+
         self.query_text4 = QLineEdit(self)
         self.query_text4.setPlaceholderText('Introduce la secuencia a eliminar')
         self.queryBtn6 = QPushButton('Cambiar cadena', self)
@@ -62,6 +69,19 @@ class App(QWidget):
         self.queryBtn4.clicked[bool].connect(self.doCommentQuery)
         self.bigQueryBtn = QPushButton('Realizar consulta',self)
         self.bigQueryBtn.clicked[bool].connect(self.do_big_query)
+
+        self.query_text5 = QLineEdit(self)
+        self.query_text5.setPlaceholderText('Introduce la consulta de UniProt')
+
+        self.APIQueryBtn = QPushButton('Consulta UNIPROT', self)
+        self.APIQueryBtn.clicked[bool].connect(self.do_api_query)
+
+        self.query_text6 = QLineEdit(self)
+        self.query_text6.setPlaceholderText('Introduce la base de datos a usar')
+
+        self.getRDFBtn = QPushButton('Seleccionar RDF', self)
+        self.getRDFBtn.clicked[bool].connect(self.retrieve_rdf)
+
 
         # Combobox
         self.combo = QComboBox(self)
@@ -91,6 +111,13 @@ class App(QWidget):
         self.layout.addWidget(self.queryBtn2)
         self.layout.addWidget(self.queryBtn3)
         self.layout.addWidget(self.queryBtn4)
+
+        self.layout.addWidget(self.query_response)
+        self.layout.addWidget(self.query_text5)
+        self.layout.addWidget(self.APIQueryBtn)
+        self.layout.addWidget(self.query_text6)
+        self.layout.addWidget(self.getRDFBtn)
+
         self.layout.addWidget(self.combo)
 
         self.setLayout(self.layout)
@@ -115,6 +142,28 @@ class App(QWidget):
 
         # table selection change
         self.tableWidget.doubleClicked.connect(self.on_click)
+
+
+    def do_api_query(self):
+        try:
+            self.query_response.setText("Performing query ... " + 'http://www.uniprot.org/uniprot/?%s' % self.query_text5.text())
+            r = requests.get(
+                'http://www.uniprot.org/uniprot/%s' % self.query_text5.text())
+            if r.status_code == 200:
+                self.query_response.setText("API returned 200 - Parsing data.")
+                self.query_response.setText(r.text)
+        except Exception as e:
+            self.query_response.setText(e.message)
+            print(e.args)
+
+    def retrieve_rdf(self):
+        try:
+            g.parse('%s.rdf' % self.query_text6text())
+        except Exception as e:
+            self.query_response.setText(e.message)
+            print(e.args)
+        self.query_text6.setText("Base de datos seleccionada, ahora puedes hacer consultas en %s" % self.query_text6.text())
+
 
     def do_search_query(self):
         qtext = self.query_text.text()
