@@ -8,7 +8,7 @@ import requests
 import shutil
 
 g = rdflib.Graph()
-g.parse('x.rdf')
+g.parse('chromosome.rdf')
 
 qres = g.query(
             """SELECT DISTINCT ?aDescription
