@@ -8,7 +8,7 @@ import requests
 import shutil
 
 g = rdflib.Graph()
-g.parse('chromosome.rdf')
+g.parse('x.rdf')
 
 qres = g.query(
             """SELECT DISTINCT ?aDescription
@@ -83,13 +83,6 @@ class App(QWidget):
         self.getRDFBtn.clicked[bool].connect(self.retrieve_rdf)
 
 
-        # Combobox
-        self.combo = QComboBox(self)
-        self.combo.addItem("Query A")
-        self.combo.addItem("Query B")
-        self.combo.addItem("Query C")
-        self.combo.move(50,50)
-        self.createTable()
 
         # Add box layout, add table to box layout and add box layout to widget
         self.layout = QVBoxLayout()
@@ -106,7 +99,6 @@ class App(QWidget):
         self.layout.addWidget(self.query_text3)
         self.layout.addWidget(self.query_text4)
 
-        self.layout.addWidget(self.tableWidget)
         self.layout.addWidget(self.queryBtn1)
         self.layout.addWidget(self.queryBtn2)
         self.layout.addWidget(self.queryBtn3)
@@ -117,8 +109,6 @@ class App(QWidget):
         self.layout.addWidget(self.APIQueryBtn)
         self.layout.addWidget(self.query_text6)
         self.layout.addWidget(self.getRDFBtn)
-
-        self.layout.addWidget(self.combo)
 
         self.setLayout(self.layout)
 
@@ -158,7 +148,7 @@ class App(QWidget):
 
     def retrieve_rdf(self):
         try:
-            g.parse('%s.rdf' % self.query_text6text())
+            g.parse('%s.rdf' % self.query_text6.text())
         except Exception as e:
             self.query_response.setText(e.message)
             print(e.args)
