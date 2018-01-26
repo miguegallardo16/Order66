@@ -25,3 +25,11 @@ Por defecto esta puesto para trabajar con un archivo .rdf que nosotros hemos cog
 
 * `g.parse('chromosome.rdf')`
 
+## Adaptacion a la interfaz
+
+Encontraremos diferentes apartados, entre ellos:
+
+### Realizar consultas manualmente
+
+En este apartado tenemos la primera caja de texto, en la cual podremos escribir nosotros mismos una consulta SPARQL y realizarla pulsando el boton que se encuentra debajo 'Realizar consulta'
+
