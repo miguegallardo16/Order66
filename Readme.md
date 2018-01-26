@@ -11,7 +11,7 @@ Primero clonaremos el repositorio:
 A continuacion nos dirigiremos a UniProt y descargaremos los cromosomas que deseemos consultar.
 Lo podras descargar desde este enlace:
 
-* `[http://www.uniprot.org/proteomes/UP000000589](http://www.uniprot.org/proteomes/UP000000589)`
+* `http://www.uniprot.org/proteomes/UP000000589`
 
 ## Ejecucion del programa
 
