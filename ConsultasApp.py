@@ -83,7 +83,7 @@ class App(QWidget):
         self.getRDFBtn.clicked[bool].connect(self.retrieve_rdf)
 
 
-
+        self.createTable()
         # Add box layout, add table to box layout and add box layout to widget
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.text_edit)
@@ -98,7 +98,7 @@ class App(QWidget):
         self.layout.addWidget(self.queryBtn6)
         self.layout.addWidget(self.query_text3)
         self.layout.addWidget(self.query_text4)
-
+        self.layout.addWidget(self.tableWidget)
         self.layout.addWidget(self.queryBtn1)
         self.layout.addWidget(self.queryBtn2)
         self.layout.addWidget(self.queryBtn3)
