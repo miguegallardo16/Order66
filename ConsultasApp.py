@@ -8,20 +8,13 @@ import requests
 import shutil
 
 g = rdflib.Graph()
-g.parse('chromosome.rdf')
-
-qres = g.query(
-            """SELECT DISTINCT ?aDescription
-                WHERE {
-                    ?a rdfs:label ?aDescription .
-                }""")
 
 font = QFont("Consolas")
 
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.title = 'Prueba RDF'
+        self.title = 'MusQlus'
         self.left = 0
         self.top = 30
         self.width = 1000
@@ -82,10 +75,13 @@ class App(QWidget):
         self.getRDFBtn = QPushButton('Seleccionar RDF', self)
         self.getRDFBtn.clicked[bool].connect(self.retrieve_rdf)
 
+        self.getRDFBtn2 = QPushButton('Cargar chromosome.rdf', self)
+        self.getRDFBtn2.clicked[bool].connect(self.retrieve_rdf2)
 
         self.createTable()
         # Add box layout, add table to box layout and add box layout to widget
         self.layout = QVBoxLayout()
+        self.layout.addWidget(self.getRDFBtn2)
         self.layout.addWidget(self.text_edit)
         self.layout.addWidget(self.bigQueryBtn)
 
@@ -154,6 +150,12 @@ class App(QWidget):
             print(e.args)
         self.query_text6.setText("Base de datos seleccionada, ahora puedes hacer consultas en %s" % self.query_text6.text())
 
+    def retrieve_rdf2(self):
+        try:
+            g.parse('chromosome.rdf')
+        except Exception as e:
+            self.query_response.setText(e.message)
+            print(e.args)
 
     def do_search_query(self):
         qtext = self.query_text.text()
